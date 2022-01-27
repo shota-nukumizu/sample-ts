@@ -6,3 +6,5 @@ const person = {
         console.log(`${this.name} Age: ${this.age}`)
     }
 }
+
+person.print()
