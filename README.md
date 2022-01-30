@@ -79,6 +79,17 @@ Jeigun.print()
 Aren.print()
 ```
 
+▼Vueの状態管理で必要なstoreを実装してみた。
+
+```typescript
+import { createStore, Store, useStore as baseUseStore } from 'vuex'
+
+// typescriptでVuexのstateを記述する際には、予めStateの型を決めておく必要がある。
+type State = {}
+
+export const store = createStore<State>({})
+```
+
 # アクセス修飾子(TypeScript)
 
 クラスを利用するようになると、クラス内に用意したプロパティのすべてが自由に読み書きできるようになってしまう。何らかの制限をかける際に必要なのが、以下のアクセス修飾子である。
