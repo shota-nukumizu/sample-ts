@@ -91,7 +91,53 @@ export const store = createStore<State>({})
 ```
 
 ※余談<br>
-Vuex は Vueの状態管理ライブラリ。**これは`store.ts`によって予測可能な方法によってのみ状態の変異を行うというルールを保証し、アプリ内の全てのコンポーネントがそこに収束するように機能します。**
+Vuex は Vueの状態管理ライブラリ。**これは`store.ts`によって予測可能な方法によってのみ状態の変異を行うというルールを保証し、アプリ内の全てのコンポーネントがそこに収束するように機能する。**
+
+▼Vueのシンプルページを作成するときに必要な最低限のコード
+
+```ts
+import { Component, Vue } from "vue-property-decorator";
+import TestComponent from "~/components/TestComponent.vue";
+
+// デコレート
+@Component({
+    components: {
+        TestComponent
+    },
+})
+
+// どのクラスから継承するのかをきちんと明示しておく
+export default class IndexPage extends Vue {
+    name = {
+        firstName: 'Shota',
+        lastName: 'Nukumizu'
+    }
+    get testUser() {
+        return this.name
+    }
+}
+```
+
+▼Vue✕TypeScriptのテンプレート(VueあるいはNuxt)
+
+```vue
+<template>
+  <div class="main">
+    <project />
+  </div>
+</template>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import Project from '@/components/Project.vue'
+@Component({
+  components: {
+    project
+  }
+})
+export default class HelloWorld extends Vue {
+}
+</script>
+```
 
 # アクセス修飾子(TypeScript)
 
