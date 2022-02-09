@@ -179,6 +179,25 @@ export default class Books extends VuexModule {
 }
 ```
 
+▼VuexでAPIの非同期通信を行うプログラム(TypeScript)
+
+```ts
+import { Module, VuexModule, MutationAction } from 'vuex-module-decorators'
+import { ConferencesEntity, EventsEntity } from '@/models/definitions'
+
+@Module
+export default class HGAPIModule extends VuexModule {
+  conferences: Array<ConferencesEntity> = [] // <>はGenericで、抽象的な型引数を使って型が確定しないクラスや関数、インターフェイスを実現するために使われる
+  events: Array<EventsEntity> = []
+
+  @MutationAction({ mutate: ['events', 'conferences'] })
+  async fetchAll() {
+    const response: Response = await getJSON('https://hasgeek.github.io/events/api/events.json')
+    return response
+  }
+}
+```
+
 # アクセス修飾子(TypeScript)
 
 クラスを利用するようになると、クラス内に用意したプロパティのすべてが自由に読み書きできるようになってしまう。何らかの制限をかける際に必要なのが、以下のアクセス修飾子である。
