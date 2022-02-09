@@ -139,6 +139,46 @@ export default class HelloWorld extends Vue {
 </script>
 ```
 
+▼Vuex✕TypeScriptの簡単なInterface。
+
+```ts
+export interface Article {
+    id: number
+    title: String
+    created_at: String
+    is_public: Boolean
+}
+```
+
+▼Vuex✕TypeScriptの`store`実装。
+
+```ts
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+import { Book } from './Books/Interface';
+import { ConvertToHttps } from './Books/utility'
+
+
+@Module({ stateFactory: true, namespaced: true, name: 'books' })
+export default class Books extends VuexModule {
+    private books: Book[] = [];
+
+    public get Books(): Book[] {
+        return this.books;
+    }
+
+    @Mutation
+    private SET_BOOKS(books: Book[]) {
+        this.books = books;
+    }
+
+    @Action({})
+    public async setBooks(books: Book[]): Promise<void> {
+        this.SET_BOOKS(books);
+    }
+
+}
+```
+
 # アクセス修飾子(TypeScript)
 
 クラスを利用するようになると、クラス内に用意したプロパティのすべてが自由に読み書きできるようになってしまう。何らかの制限をかける際に必要なのが、以下のアクセス修飾子である。
