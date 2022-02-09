@@ -198,6 +198,66 @@ export default class HGAPIModule extends VuexModule {
 }
 ```
 
+▼Vue✕TypeScriptでの入力画面フォーム
+
+```vue
+<template>
+  <div id="app">
+    <h1>My TS App</h1>
+    <p><input type="text" v-model="inputText" /></p>
+    <p>Count: {{ count }}</p>
+    <p><button @click="reset()">Reset</button></p>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'App',
+  data: () => {
+    return { inputText: '' }
+  },
+  methods: {
+    reset(){
+      this.inputText = ''
+    }
+  },
+  computed: {
+    count() {
+      return this.inputText.length
+    }
+  }
+});
+</script>
+```
+
+▼簡単なTypeScriptのinterfaceを使ったプログラム
+
+```ts
+interface FullName {
+  first: string;
+  last: string;
+}
+
+interface Callback {
+  (result: number): void
+}
+
+let myName: FullName = { first: "Andy", last: "Li" }
+
+const outputToConsole: Callback = function(result) {
+  console.log("Output: " + result)
+}
+
+function getNameLength(name: FullName, callback: Callback): void {
+  const len = name.first.length + name.last.length
+  callback(len)
+}
+
+getNameLength(myName, outputToConsole)
+```
+
 # アクセス修飾子(TypeScript)
 
 クラスを利用するようになると、クラス内に用意したプロパティのすべてが自由に読み書きできるようになってしまう。何らかの制限をかける際に必要なのが、以下のアクセス修飾子である。
@@ -206,4 +266,4 @@ export default class HGAPIModule extends VuexModule {
 | :-- | :-- |
 |`public` | 外部から自由にアクセスできる。デフォルトの設定 |
 | `protected` | クラスおよびそのクラスを継承したサブクラスからは使えないが、継承関係のないその他のクラスからはアクセスできなくなる。 |
-| `private` | クラス内でアクセスできる。クラス外からのアクセスをすべて拒否する。 |
+| `private` | クラス内でアクセスできる。クラス外からのアクセスをすべて拒否する。 
